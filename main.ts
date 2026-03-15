@@ -1,3 +1,7 @@
+function GitHub () {
+    callibot2.comment("calliope-net/spurfolger2e-41")
+    callibot2.comment("1 Erweiterung: calliope-net/callibot2")
+}
 input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
     callibot2.comment("Ultraschall Abstand Sensor")
     callibot2.write_motor_prozent(callibot2.eMotor.beide, 80)
