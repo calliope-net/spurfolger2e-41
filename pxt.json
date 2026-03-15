@@ -1,0 +1,24 @@
+{
+    "name": "spurfolger2e-41",
+    "description": "",
+    "dependencies": {
+        "core": "*",
+        "callibot2": "github:calliope-net/callibot2#master"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "4.0.29",
+        "targetId": "calliopemini"
+    },
+    "supportedTargets": [
+        "calliopemini"
+    ],
+    "preferredEditor": "blocksprj"
+}
