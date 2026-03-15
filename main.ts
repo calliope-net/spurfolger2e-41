@@ -20,7 +20,7 @@ input.onButtonEvent(Button.AB, input.buttonEventClick(), function () {
 })
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
     if (!(go)) {
-        callibot2.comment("bis zur Linie geradeaus fahren")
+        callibot2.comment("bis zur Spur geradeaus fahren")
         callibot2.write_motor_prozent(callibot2.eMotor.beide, 50)
         callibot2.wait_spursensor()
         go = true
@@ -41,7 +41,7 @@ basic.forever(function () {
         callibot2.comment("Spur folgen")
         callibot2.read_inputs()
         if (!(callibot2.get_inputs(callibot2.eINPUTS.sp2l)) && !(callibot2.get_inputs(callibot2.eINPUTS.sp1r))) {
-            callibot2.comment("beide Sensoren dunkel- auf der Linie")
+            callibot2.comment("beide Sensoren dunkel: auf der Spur")
             callibot2.write_motor_prozent(callibot2.eMotor.beide, 100)
         } else if (callibot2.get_inputs(callibot2.eINPUTS.sp2l) && !(callibot2.get_inputs(callibot2.eINPUTS.sp1r))) {
             callibot2.comment("nach rechts lenken")
@@ -50,7 +50,7 @@ basic.forever(function () {
             callibot2.comment("nach links lenken")
             callibot2.write_motoren_prozent(-50, 50)
         } else if (callibot2.get_inputs(callibot2.eINPUTS.sp2l) && callibot2.get_inputs(callibot2.eINPUTS.sp1r)) {
-            callibot2.comment("beide hell: Spur verloren")
+            callibot2.comment("beide Sensoren hell: Spur verloren")
             callibot2.write_motoren_prozent(50, -50)
             callibot2.wait_spursensor()
         }
