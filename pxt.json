@@ -3,7 +3,7 @@
     "description": "",
     "dependencies": {
         "core": "*",
-        "callibot2": "github:calliope-net/callibot2#master"
+        "callibot2": "github:calliope-net/callibot2#v0.0.1"
     },
     "files": [
         "main.blocks",
