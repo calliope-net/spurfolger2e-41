@@ -1,5 +1,6 @@
 {
     "name": "spurfolger2e-41",
+    "version": "0.0.1",
     "description": "",
     "dependencies": {
         "core": "*",
