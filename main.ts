@@ -1,3 +1,7 @@
+input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
+    callibot2.write_motor_prozent(callibot2.eMotor.beide, 80)
+    callibot2.wait_us(20)
+})
 input.onButtonEvent(Button.AB, input.buttonEventClick(), function () {
     for (let index = 0; index < 4; index++) {
         callibot2.write_rgbled(0x00ff00)
@@ -26,9 +30,6 @@ callibot2.reset_outputs()
 go = 0
 basic.showNumber(callibot2.read_power())
 basic.showString(callibot2.read_typ())
-loops.everyInterval(500, function () {
-    callibot2.write_led(callibot2.eLed.poweron, true, true)
-})
 basic.forever(function () {
     if (go == 1) {
         callibot2.comment("1 bis zur Linie geradeaus fahren")
