@@ -11,27 +11,33 @@ input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
     callibot2.encoder_wait_grad(360)
     callibot2.write_rgbled(0x000000)
 })
+function spur_suchen () {
+    callibot2.comment("1:geradeaus 2:drehen")
+    if (go == 1) {
+        basic.setLedColor(0xffffff)
+        callibot2.write_motor_prozent(callibot2.eMotor.beide, 65)
+    } else if (go == 2) {
+        basic.setLedColor(0xffff00)
+        callibot2.write_motoren_prozent(25, -25)
+    }
+    callibot2.comment("warten bis Spur gefunden (solange links oder rechts hell)")
+    while (callibot2.get_inputs(callibot2.eINPUTS.sp2l) || callibot2.get_inputs(callibot2.eINPUTS.sp1r)) {
+        basic.pause(100)
+        callibot2.read_inputs()
+    }
+    callibot2.comment("Spur gefunden - normal weiter")
+    callibot2.write_motor_prozent(callibot2.eMotor.beide, 0)
+    basic.setLedColor(0x00ff00)
+}
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
     if (go == 0) {
         go = 1
-        basic.setLedColor(0xffffff)
     } else {
         go = 0
         callibot2.write_motor_prozent(callibot2.eMotor.beide, 0)
         basic.setLedColor(0xff0000)
     }
 })
-function spur_verloren () {
-    basic.setLedColor(0xffff00)
-    callibot2.write_motoren_prozent(25, -25)
-    while (callibot2.get_inputs(callibot2.eINPUTS.sp2l) || callibot2.get_inputs(callibot2.eINPUTS.sp1r)) {
-        basic.pause(100)
-        callibot2.read_inputs()
-    }
-    callibot2.write_motor_prozent(callibot2.eMotor.beide, 0)
-    basic.setLedColor(0x00ff00)
-    go = 2
-}
 let go = 0
 callibot2.reset_outputs()
 go = 0
@@ -43,12 +49,8 @@ loops.everyInterval(500, function () {
 basic.forever(function () {
     if (go == 1) {
         callibot2.comment("1 bis zur Linie geradeaus fahren")
-        callibot2.write_motor_prozent(callibot2.eMotor.beide, 65)
-        callibot2.read_inputs()
-        if (!(callibot2.get_inputs(callibot2.eINPUTS.sp2l)) && !(callibot2.get_inputs(callibot2.eINPUTS.sp1r))) {
-            callibot2.comment("beide schwarz, Linie gefunden -> 2")
-            spur_verloren()
-        }
+        spur_suchen()
+        go = 2
     } else if (go == 2) {
         callibot2.comment("2 Spur folgen")
         callibot2.read_inputs()
@@ -63,7 +65,7 @@ basic.forever(function () {
             callibot2.write_motoren_prozent(-50, 50)
         } else if (callibot2.get_inputs(callibot2.eINPUTS.sp2l) && callibot2.get_inputs(callibot2.eINPUTS.sp1r)) {
             callibot2.comment("beide hell: Spur verloren")
-            spur_verloren()
+            spur_suchen()
         }
     }
 })
