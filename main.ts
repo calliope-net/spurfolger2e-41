@@ -20,10 +20,14 @@ function spur_suchen () {
         basic.setLedColor(0xffff00)
         callibot2.write_motoren_prozent(25, -25)
     }
-    callibot2.comment("warten bis Spur gefunden (solange links oder rechts hell)")
-    while (callibot2.get_inputs(callibot2.eINPUTS.sp2l) || callibot2.get_inputs(callibot2.eINPUTS.sp1r)) {
-        basic.pause(100)
+    callibot2.comment("warten bis Spur gefunden")
+    while (go > 0) {
         callibot2.read_inputs()
+        if (!(callibot2.get_inputs(callibot2.eINPUTS.sp2l)) && !(callibot2.get_inputs(callibot2.eINPUTS.sp1r))) {
+            callibot2.comment("Spur gefunden - Schleife abbrechen")
+            break;
+        }
+        basic.pause(200)
     }
     callibot2.comment("Spur gefunden - normal weiter")
     callibot2.write_motor_prozent(callibot2.eMotor.beide, 0)
